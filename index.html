@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
+</head>
+<style>
+*{
+    font-family: 'Nerko One', cursive;
+    margin: 0;
+    padding: 0;
+}
+.flex
+{
+    display: flex;
+}
+.gameTurn
+{
+    height: 20px;
+    text-align: center;
+    margin:30px 0 20px 0;
+    font-size: 25px;
+    
+}
+.gameTurn p{
+    margin: auto;
+}
+.color
+{
+        /* background-color: red; */
+}
+.welcome
+{
+    align-items: center;
+    text-align: center;
+}
+.welcomePara
+{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 50px;
+}
+button{
+    height: 85px;
+    width: 100%;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 2px 5px 5px 1px rgb(0 0 0 / 44%);
+    background-color: rgb(106, 243, 124);
+}
+button:hover
+{
+        -webkit-transform: scale(1.2);
+        -ms-transform: scale(1.2);
+        transform: scale(1.2);
+}
+.butt
+{
+    justify-content: space-between;
+}
+.butt div{
+    width: 33%;
+    padding: 25px;
+}
+#result
+{
+    height: 200px;
+    text-align: center;
+    font-size: 100px;
+}
+.space-around{
+    justify-content: space-around;
+    
+}
+</style>
+
+<body class="">
+    <div class="welcome color">
+        <div>
+            <p class="welcomePara">Welcome to Stone Paper Scissor Game</p>
+        </div>
+    </div>
+    <div class="gameTurn color flex">
+        <p>Game = <span id="turn">0</span> </p>
+    </div>
+    <div>
+
+        <div class="flex space-around " style="font-size: 30px;">
+            <div class="flex">
+                <p>Your score = </p>
+                <p id="yscore">0</p>
+            </div>
+            <div class="flex">
+                <p>Computer Score = </p>
+                <p id="cscore">0</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="flex butt color">
+        <div class="first">
+            <button onclick="functionStone()">
+                Stone
+            </button>
+        </div>
+        <div class="second">
+            <button onclick="functionPaper()">
+                Paper
+            </button>
+        </div>
+        <div class="third">
+            <button onclick="functionScissor()">
+                Scissor
+            </button>
+        </div>
+    </div>
+    <div>
+        <p id="result"></p>
+    </div>
+</body>
+<script>
+    let Yscore = 0, Cscore = 0, turn = 0;
+    var audioDraw = new Audio('draw.wav');
+    var audioSucc = new Audio("suc.mp3");
+    var audioLost = new Audio('lost.wav');
+    const functionStone = () => {
+        turn++;
+        let stone = false, paper = false, scissor = false, userScissor = false, userStone = false, userPaper = false;
+        let rand = Math.floor(Math.random() * 3)
+        userStone = true;
+        if (rand == 2) {
+            stone = true;
+        }
+        else if (rand == 1) {
+            paper = true;
+        }
+        else {
+            scissor = true;
+        }
+        if (userStone == true && paper == true) {
+            //user lost
+            document.getElementById("result").innerHTML = "You lost,Computer Choosed Paper 🤣🤣"
+            Cscore++;
+            audioLost.play();
+        }
+        else if (userStone == true && scissor == true) {
+            // user wins
+            document.getElementById("result").innerHTML = "You Win, Computer Choosed Scissor 🥳🥳"
+            audioSucc.play()
+            Yscore++;
+        }
+        else if (userStone == true && stone == true) {
+            // draw
+            document.getElementById("result").innerHTML = " Draw ";
+            audioDraw.play();
+
+        }
+        document.getElementById("yscore").innerHTML = Yscore;
+        document.getElementById("cscore").innerHTML = Cscore;
+        document.getElementById("turn").innerHTML = turn;
+    }
+    function functionPaper() {
+        turn++;
+        let stone = false, paper = false, scissor = false, userScissor = false, userStone = false, userPaper = false;
+        let rand = Math.floor(Math.random() * 3)
+        userPaper = true;
+        if (rand == 2) {
+            stone = true;
+        }
+        else if (rand == 1) {
+            paper = true;
+        }
+        else {
+            scissor = true;
+        }
+        if (userPaper == true && paper == true) {
+            //Draw
+            document.getElementById("result").innerHTML = "Draw"
+            audioDraw.play()
+        }
+        else if (userPaper == true && scissor == true) {
+            // user wins
+            document.getElementById("result").innerHTML = "You Lost, Computer Choosed Scissor 🤣🤣"
+            audioLost.play()
+            Cscore++;
+
+        }
+        else if (userPaper == true && stone == true) {
+            // draw
+            document.getElementById("result").innerHTML = " You Win, Computer Choosed Stone 🥳🥳";
+            Yscore++;
+            audioSucc.play()
+        }
+        document.getElementById("yscore").innerHTML = Yscore;
+        document.getElementById("cscore").innerHTML = Cscore;
+        document.getElementById("turn").innerHTML = turn;
+
+
+    }
+    function functionScissor() {
+        turn++;
+        let stone = false, paper = false, scissor = false, userScissor = false, userStone = false, userPaper = false;
+        let rand = Math.floor(Math.random() * 3)
+        userScissor = true;
+        if (rand == 2) {
+            stone = true;
+        }
+        else if (rand == 1) {
+            paper = true;
+        }
+        else {
+            scissor = true;
+        }
+        if (userScissor == true && paper == true) {
+            //user lost
+            document.getElementById("result").innerHTML = " You Win, Computer Choosed Paper 🥳🥳"
+            Yscore++;
+            audioSucc.play()
+        }
+        else if (userScissor == true && scissor == true) {
+            // user wins
+            document.getElementById("result").innerHTML = " Draw ";
+            audioDraw.play()
+
+        }
+        else if (userScissor == true && stone == true) {
+            document.getElementById("result").innerHTML = "You Lost, Computer Choosed Stone 🤣🤣"
+            Cscore++;
+            audioLost.play()
+            // draw
+        }
+        document.getElementById("yscore").innerHTML = Yscore;
+        document.getElementById("cscore").innerHTML = Cscore;
+        document.getElementById("turn").innerHTML = turn;
+
+    }
+</script>
+
+</html>
